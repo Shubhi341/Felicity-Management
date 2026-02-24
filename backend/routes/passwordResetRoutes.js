@@ -1,14 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const { requestReset, getPendingRequests, resolveRequest } = require('../controllers/passwordResetController');
 const protect = require('../middleware/authMiddleware');
 const allowRoles = require('../middleware/roleMiddleware');
+const {
+    requestPasswordReset,
+    getAllResetRequests,
+    processResetRequest
+} = require('../controllers/passwordResetController');
 
-// Public route to request reset
-router.post('/request', requestReset);
+// Organizer requests reset (no auth required since they forgot password, but we need an identifier)
+router.post('/request', requestPasswordReset);
 
 // Admin routes
-router.get('/pending', protect, allowRoles('admin'), getPendingRequests);
-router.patch('/:id/resolve', protect, allowRoles('admin'), resolveRequest);
+router.get('/', protect, allowRoles('admin'), getAllResetRequests);
+router.patch('/:id', protect, allowRoles('admin'), processResetRequest);
 
 module.exports = router;

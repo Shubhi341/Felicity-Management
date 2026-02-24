@@ -87,6 +87,11 @@ npm run dev
 * **Implementation Details**: Implemented inside the `EventDetails` page. It features background polling rather than heavy WebSockets for simplicity, keeping the server load light. The backend schema `Discussion.js` supports infinite threading (`replyTo`), soft deletes, custom Emoji reactions array, and boolean `isPinned` flags.
 * **Technical Challenges**: Structuring the MongoDB queries to `populate` deeply nested User refs for both the original message and its parent thread simultaneously.
 
+### Tier B: Organizer Password Reset Workflow
+* **Justification**: Organizers handle sensitive user and financial data. A standard self-service password reset via email can be a security risk if an organizer's personal email is compromised. By routing reset requests through the Admin, we enforce a strict human-in-the-loop security policy for privileged accounts.
+* **Implementation Details**: Built a dedicated `PasswordReset.js` schema tracking the `organizer` (ref), `reason`, `status` (Pending/Approved/Rejected), and timestamps. The Login page includes a "Reset Organizer Password" portal. Admins have a dedicated dashboard view where they can review requests. Upon Admin approval, the backend generates a secure random string, cryptographically hashes it using `bcrypt`, updates the Organizer's password in the database, and displays the temporary cleartext password to the Admin to securely share out-of-band with the Organizer.
+* **Technical Challenges**: Ensuring the UI accurately reflected all three lifecycle states (Pending, Approved, Rejected) and generating a cryptographically secure but human-readable temporary password for the Admin to copy.
+
 ### Tier C: Anonymous Feedback
 * **Justification**: Organizers need post-event metrics to improve, but participants are more honest when anonymized.
 * **Implementation Details**: A dedicated `Feedback.js` schema captures 1-5 star ratings and string comments, deliberately omitting a User reference to guarantee anonymity. The Organizer Dashboard aggregates this data, calculating the mean Average Rating dynamically for published events.

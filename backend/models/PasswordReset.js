@@ -2,22 +2,23 @@ const mongoose = require('mongoose');
 
 const passwordResetSchema = new mongoose.Schema(
     {
-        email: {
-            type: String,
-            required: true
-        },
         organizer: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Participant' // Organizers are in Participant collection with role='organizer'
+            ref: 'Participant',
+            required: true
+        },
+        reason: {
+            type: String,
+            required: true
         },
         status: {
             type: String,
-            enum: ['pending', 'approved', 'rejected', 'completed'],
-            default: 'pending'
+            enum: ['Pending', 'Approved', 'Rejected'],
+            default: 'Pending'
         },
-        newPassword: {
-            type: String, // Temporarily store requested new password or generated one (hashed)
-            required: true
+        adminComment: {
+            type: String,
+            default: ''
         }
     },
     { timestamps: true }
