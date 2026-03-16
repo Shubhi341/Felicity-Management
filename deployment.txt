@@ -1,5 +1,5 @@
 # Frontend URL
-https://felicity-events-frontend.vercel.app
+https://felicity-management-sigma.vercel.app
 
 # Backend API URL
-https://felicity-events-backend.onrender.com
+https://felicity-management-uwrz.onrender.com
