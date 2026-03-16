@@ -16,7 +16,7 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
         {
           email,
           password,
@@ -54,7 +54,7 @@ function Login() {
   const handleResetRequest = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/password-reset/request", {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/password-reset/request`, {
         email: resetEmail,
         reason: newPassword // Reusing state var to avoid adding more, but effectively it's the 'reason'
       });

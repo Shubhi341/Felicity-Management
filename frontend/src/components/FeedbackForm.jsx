@@ -14,7 +14,7 @@ const FeedbackForm = ({ eventId }) => {
 
     const fetchFeedback = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/feedback/${eventId}`);
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/feedback/${eventId}`);
             setFeedbacks(response.data);
             setLoading(false);
         } catch (error) {
@@ -29,7 +29,7 @@ const FeedbackForm = ({ eventId }) => {
             if (!token) return alert("Please login to submit feedback");
 
             await axios.post(
-                "http://localhost:5000/api/feedback",
+                `${import.meta.env.VITE_BACKEND_URL}/api/feedback`,
                 { eventId, rating: Number(rating), comment, isAnonymous },
                 { headers: { Authorization: `Bearer ${token}` } }
             );

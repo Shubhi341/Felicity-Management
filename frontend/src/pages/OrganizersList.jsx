@@ -13,7 +13,7 @@ const OrganizersList = () => {
 
     const fetchOrganizers = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/api/participants/organizers");
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/participants/organizers`);
             setOrganizers(response.data);
         } catch (error) {
             console.error(error);
@@ -24,7 +24,7 @@ const OrganizersList = () => {
         try {
             const token = localStorage.getItem("token");
             if (token) {
-                const response = await axios.get("http://localhost:5000/api/participants/profile", {
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/participants/profile`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 const followedData = response.data.followedOrganizers || [];
@@ -42,7 +42,7 @@ const OrganizersList = () => {
             const token = localStorage.getItem("token");
             if (!token) return alert("Login to follow");
 
-            const res = await axios.post(`http://localhost:5000/api/participants/organizers/${id}/follow`, {}, {
+            const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/participants/organizers/${id}/follow`, {}, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 

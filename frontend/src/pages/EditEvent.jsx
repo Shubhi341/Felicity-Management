@@ -31,7 +31,7 @@ const EditEvent = () => {
     const fetchEventDetails = async () => {
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch(`http://localhost:5000/api/events/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events/${id}`, {
                 headers: { "Authorization": `Bearer ${token}` }
             });
             const data = await response.json();
@@ -110,7 +110,7 @@ const EditEvent = () => {
                 merchandiseVariants: variants
             };
 
-            const response = await fetch(`http://localhost:5000/api/organizer/events/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/organizer/events/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

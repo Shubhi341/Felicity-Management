@@ -16,13 +16,13 @@ const OrganizerDetails = () => {
     const fetchData = async () => {
         try {
             // Fetch Organizer Details (Public)
-            const orgRes = await axios.get(`http://localhost:5000/api/participants/organizers/${id}`);
+            const orgRes = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/participants/organizers/${id}`);
             setOrganizer(orgRes.data);
 
             // Check if following (if logged in as participant)
             const token = localStorage.getItem("token");
             if (token && localStorage.getItem("role") === "participant") {
-                const profileRes = await axios.get("http://localhost:5000/api/participants/profile", {
+                const profileRes = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/participants/profile`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 const followedData = profileRes.data.followedOrganizers || [];
@@ -33,7 +33,7 @@ const OrganizerDetails = () => {
             }
 
             // Fetch All Events and Filter
-            const eventsRes = await axios.get("http://localhost:5000/api/events");
+            const eventsRes = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/events`);
             const orgEvents = eventsRes.data.filter(e =>
                 (e.organizer && String(e.organizer._id) === id) ||
                 (e.organizer && String(e.organizer) === id)
@@ -54,7 +54,7 @@ const OrganizerDetails = () => {
             const token = localStorage.getItem("token");
             if (!token) return alert("Login to follow");
 
-            const res = await axios.post(`http://localhost:5000/api/participants/organizers/${id}/follow`, {}, {
+            const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/participants/organizers/${id}/follow`, {}, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 

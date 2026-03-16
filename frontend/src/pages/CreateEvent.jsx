@@ -73,7 +73,7 @@ const CreateEvent = () => {
                 merchandiseVariants: variants // Include variants
             };
 
-            const response = await fetch("http://localhost:5000/api/organizer/events", {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/organizer/events`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

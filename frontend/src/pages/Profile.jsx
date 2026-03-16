@@ -23,7 +23,7 @@ const Profile = () => {
     const fetchProfile = async () => {
         try {
             const token = localStorage.getItem("token");
-            const response = await axios.get("http://localhost:5000/api/participants/profile", {
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/participants/profile`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setProfile(response.data);
@@ -39,7 +39,7 @@ const Profile = () => {
         e.preventDefault();
         try {
             const token = localStorage.getItem("token");
-            await axios.put("http://localhost:5000/api/participants/profile", formData, {
+            await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/participants/profile`, formData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             alert("Profile Updated Successfully");
@@ -53,7 +53,7 @@ const Profile = () => {
         e.preventDefault();
         try {
             const token = localStorage.getItem("token");
-            await axios.put("http://localhost:5000/api/participants/change-password", passData, {
+            await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/participants/change-password`, passData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             alert("Password Changed Successfully");

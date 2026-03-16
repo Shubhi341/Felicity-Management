@@ -22,7 +22,7 @@ const EventDetails = () => {
 
     const fetchEventDetails = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/events/${id}`);
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/events/${id}`);
             setEvent(response.data);
 
             const token = localStorage.getItem("token");
@@ -31,7 +31,7 @@ const EventDetails = () => {
             if (token && (!role || role === "participant")) {
                 // Check if user is already registered for this event
                 try {
-                    const regRes = await axios.get(`http://localhost:5000/api/registrations/my`, {
+                    const regRes = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/registrations/my`, {
                         headers: { Authorization: `Bearer ${token}` }
                     });
                     const myRegs = regRes.data;
@@ -64,7 +64,7 @@ const EventDetails = () => {
     const fetchParticipants = async () => {
         try {
             const token = localStorage.getItem("token");
-            const res = await axios.get(`http://localhost:5000/api/organizer/events/${id}/participants`, {
+            const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/organizer/events/${id}/participants`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setParticipants(res.data);
@@ -119,7 +119,7 @@ const EventDetails = () => {
             }
 
             await axios.post(
-                `http://localhost:5000/api/registrations/events/${id}/register`,
+                `${import.meta.env.VITE_BACKEND_URL}/api/registrations/events/${id}/register`,
                 formData,
                 {
                     headers: {

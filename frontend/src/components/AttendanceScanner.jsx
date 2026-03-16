@@ -42,7 +42,7 @@ const AttendanceScanner = () => {
         try {
             const token = localStorage.getItem("token");
             const response = await axios.post(
-                "http://localhost:5000/api/registrations/mark-attendance",
+                `${import.meta.env.VITE_BACKEND_URL}/api/registrations/mark-attendance`,
                 { ticketId, method, reason },
                 { headers: { Authorization: `Bearer ${token}` } }
             );

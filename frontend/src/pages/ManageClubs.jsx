@@ -13,7 +13,7 @@ const ManageClubs = () => {
 
     const fetchOrganizers = async () => {
         try {
-            const res = await axios.get("http://localhost:5000/api/participants/organizers");
+            const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/participants/organizers`);
             setOrganizers(res.data);
         } catch (err) {
             console.error("Error fetching organizers", err);
@@ -27,7 +27,7 @@ const ManageClubs = () => {
 
         try {
             const token = localStorage.getItem("token");
-            const res = await axios.post("http://localhost:5000/api/participants/admin/organizers", formData, {
+            const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/participants/admin/organizers`, formData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -47,7 +47,7 @@ const ManageClubs = () => {
 
         try {
             const token = localStorage.getItem("token");
-            await axios.delete(`http://localhost:5000/api/participants/admin/organizers/${id}`, {
+            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/participants/admin/organizers/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             fetchOrganizers();

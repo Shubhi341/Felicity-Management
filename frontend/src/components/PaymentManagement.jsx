@@ -11,7 +11,7 @@ const PaymentManagement = () => {
     const fetchPendingPayments = async () => {
         try {
             const token = localStorage.getItem("token");
-            const res = await axios.get("http://localhost:5000/api/organizer/registrations/pending", {
+            const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/organizer/registrations/pending`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setRegistrations(res.data);
@@ -24,7 +24,7 @@ const PaymentManagement = () => {
         try {
             const token = localStorage.getItem("token");
             await axios.patch(
-                `http://localhost:5000/api/registrations/${id}/payment-status`,
+                `${import.meta.env.VITE_BACKEND_URL}/api/registrations/${id}/payment-status`,
                 { status },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -59,7 +59,7 @@ const PaymentManagement = () => {
                                 <td className="p-2">{reg.merchandiseVariant} (x{reg.quantity})</td>
                                 <td className="p-2">
                                     {reg.paymentProofUrl ? (
-                                        <a href={`http://localhost:5000${reg.paymentProofUrl}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                                        <a href={`${import.meta.env.VITE_BACKEND_URL}${reg.paymentProofUrl}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
                                             View Proof
                                         </a>
                                     ) : "N/A"}

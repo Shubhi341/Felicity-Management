@@ -35,7 +35,7 @@ const BrowseEvents = () => {
 
     const fetchEvents = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/api/events");
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/events`);
             setEvents(response.data);
             setFilteredEvents(response.data);
         } catch (error) {
@@ -45,7 +45,7 @@ const BrowseEvents = () => {
 
     const fetchTrendingEvents = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/api/events/trending");
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/events/trending`);
             setEvents(response.data);
             setFilteredEvents(response.data);
         } catch (error) {
@@ -57,7 +57,7 @@ const BrowseEvents = () => {
         try {
             const token = localStorage.getItem("token");
             if (token) {
-                const response = await axios.get("http://localhost:5000/api/participants/profile", {
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/participants/profile`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setFollowedOrganizers(response.data.followedOrganizers || []);

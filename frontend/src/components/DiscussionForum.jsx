@@ -29,7 +29,7 @@ const DiscussionForum = ({ eventId, eventOrganizerId }) => {
 
     const fetchMessages = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/discussions/${eventId}`);
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/discussions/${eventId}`);
             setMessages(response.data);
             setLoading(false);
         } catch (error) {
@@ -45,7 +45,7 @@ const DiscussionForum = ({ eventId, eventOrganizerId }) => {
             if (!token) return alert("Please login to post");
 
             await axios.post(
-                `http://localhost:5000/api/discussions/${eventId}`,
+                `${import.meta.env.VITE_BACKEND_URL}/api/discussions/${eventId}`,
                 { message: newMessage, replyTo: replyingTo?._id },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -62,7 +62,7 @@ const DiscussionForum = ({ eventId, eventOrganizerId }) => {
             if (!token) return alert("Please login first");
             await axios({
                 method,
-                url: `http://localhost:5000/api/discussions/${url}`,
+                url: `${import.meta.env.VITE_BACKEND_URL}/api/discussions/${url}`,
                 data,
                 headers: { Authorization: `Bearer ${token}` }
             });

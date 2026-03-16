@@ -21,9 +21,9 @@ function OrganizerDashboard() {
       const headers = { Authorization: `Bearer ${token}` };
 
       const [eventsRes, statsRes, registrationsRes] = await Promise.all([
-        axios.get("http://localhost:5000/api/organizer/events", { headers }),
-        axios.get("http://localhost:5000/api/organizer/dashboard/stats", { headers }),
-        axios.get("http://localhost:5000/api/organizer/registrations", { headers })
+        axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/organizer/events`, { headers }),
+        axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/organizer/dashboard/stats`, { headers }),
+        axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/organizer/registrations`, { headers })
       ]);
 
       console.log("Events Response:", eventsRes.data);
@@ -44,7 +44,7 @@ function OrganizerDashboard() {
     try {
       const token = localStorage.getItem("token");
       await axios.patch(
-        `http://localhost:5000/api/events/${eventId}/publish`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/events/${eventId}/publish`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -66,7 +66,7 @@ function OrganizerDashboard() {
     try {
       const token = localStorage.getItem("token");
       await axios.patch(
-        `http://localhost:5000/api/registrations/${registrationId}/payment-status`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/registrations/${registrationId}/payment-status`,
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -202,7 +202,7 @@ function OrganizerDashboard() {
                           <td className="p-3 text-sm">{reg.merchandiseVariant} (x{reg.quantity})</td>
                           <td className="p-3">
                             {reg.paymentProofUrl ? (
-                              <a href={`http://localhost:5000${reg.paymentProofUrl}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline text-sm">
+                              <a href={`${import.meta.env.VITE_BACKEND_URL}${reg.paymentProofUrl}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline text-sm">
                                 View Proof
                               </a>
                             ) : (

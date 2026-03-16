@@ -13,7 +13,7 @@ function OngoingEvents() {
     const fetchEvents = async () => {
         try {
             const token = localStorage.getItem("token");
-            const res = await axios.get("http://localhost:5000/api/organizer/events", {
+            const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/organizer/events`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             // Filter for ongoing events (status === 'ongoing' or based on date)

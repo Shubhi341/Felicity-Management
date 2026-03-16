@@ -18,7 +18,7 @@ function ParticipantDashboard() {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "http://localhost:5000/api/registrations/my",
+        `${import.meta.env.VITE_BACKEND_URL}/api/registrations/my`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setRegistrations(response.data);

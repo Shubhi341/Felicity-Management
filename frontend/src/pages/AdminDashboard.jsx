@@ -16,7 +16,7 @@ const AdminDashboard = () => {
             const token = localStorage.getItem("token");
             if (!token) return;
 
-            const res = await axios.get("http://localhost:5000/api/password-reset", {
+            const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/password-reset`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setResetRequests(res.data);
@@ -36,7 +36,7 @@ const AdminDashboard = () => {
 
             const comment = adminComments[id] || "";
 
-            const res = await axios.patch(`http://localhost:5000/api/password-reset/${id}`,
+            const res = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/password-reset/${id}`,
                 { status, adminComment: comment },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
